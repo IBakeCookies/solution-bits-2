@@ -9,20 +9,28 @@ const COCKTAILS = ['margarita', 'mojito', 'a1', 'kir'];
 
 export const useCocktailStore = defineStore('cocktail', () => {
     const cocktails = ref<CocktailApp[]>([]);
+    let abortController: AbortController | null = null;
 
     async function getCocktail(name: string): Promise<void> {
+        if (abortController) {
+            abortController.abort();
+        }
+
         try {
-            const { data } = await useFetch<CocktailsApi>(linkManager.getLink('cocktail'), {
+            abortController = new AbortController();
+
+            const data = await $fetch<CocktailsApi>(linkManager.getLink('cocktail'), {
                 params: {
                     s: name,
                 },
+                signal: abortController.signal,
             });
 
-            if (!data.value) {
+            if (!data) {
                 return;
             }
 
-            cocktails.value = data.value.drinks.map(transformCocktailApiToCocktailApp);
+            cocktails.value = data.drinks.map(transformCocktailApiToCocktailApp);
         } catch (error) {
             console.error(error);
         }

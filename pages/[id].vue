@@ -10,7 +10,7 @@ const id: ComputedRef<string> = computed(() => {
 });
 
 // server and client api call
-cocktailStore.getCocktail(id);
+cocktailStore.getCocktail(toValue(id));
 </script>
 
 <template>
