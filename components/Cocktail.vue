@@ -14,10 +14,11 @@ defineProps<Props>();
             loading="lazy"
             :src="cocktail.thumbnail"
             :alt="cocktail.name"
-            class="w-50 rounded-lg max-h-[14rem]"
+            class="lg:hidden rounded-lg max-h-[14rem]"
+            :placeholder="false"
         />
 
-        <div class="mt-4 ml-0 lg:ml-4 lg:mt-0">
+        <div class="order-10 lg:order-0 mt-4 mr-0 lg:mr-4 lg:mt-0">
             <h2><b>Name:</b> {{ cocktail.name }}</h2>
 
             <ul>
@@ -38,5 +39,12 @@ defineProps<Props>();
                 </li>
             </ul>
         </div>
+
+        <NuxtImg
+            loading="lazy"
+            :src="cocktail.thumbnail"
+            :alt="cocktail.name"
+            class="hiddne ml-auto rounded-lg max-h-[14rem]"
+        />
     </div>
 </template>
