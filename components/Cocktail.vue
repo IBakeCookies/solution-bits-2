@@ -10,6 +10,7 @@ defineProps<Props>();
 
 <template>
     <div class="p-6 block lg:flex">
+        <!-- Lazy not really working for me, but I am out of time to write intersection observer compoennt for now  -->
         <NuxtImg
             loading="lazy"
             :src="cocktail.thumbnail"
