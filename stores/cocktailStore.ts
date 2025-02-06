@@ -16,21 +16,21 @@ export const useCocktailStore = defineStore('cocktail', () => {
             abortController.abort();
         }
 
-        try {
-            abortController = new AbortController();
+        abortController = new AbortController();
 
-            const data = await $fetch<CocktailsApi>(linkManager.getLink('cocktail'), {
+        try {
+            const { data } = await useFetch<CocktailsApi>(linkManager.getLink('cocktail'), {
                 params: {
                     s: name,
                 },
                 signal: abortController.signal,
             });
 
-            if (!data) {
+            if (!data.value) {
                 return;
             }
 
-            cocktails.value = data.drinks.map(transformCocktailApiToCocktailApp);
+            cocktails.value = data.value.drinks.map(transformCocktailApiToCocktailApp);
         } catch (error) {
             console.error(error);
         }

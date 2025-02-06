@@ -9,7 +9,6 @@ const id: ComputedRef<string> = computed(() => {
     return getSingleRouteParam(route.params.id);
 });
 
-// server and client api call
 cocktailStore.getCocktail(toValue(id));
 </script>
 
